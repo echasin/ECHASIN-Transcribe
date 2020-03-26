@@ -29,3 +29,16 @@ json_output = [{"start_time": t, "end_time": s} for t, s in zip(start_time, end_
 output=json_normalize(json_output)
 print (output)
 
+output.to_csv(r'experiment-3/output/asrOutputTest.csv', index = False, header=True)
+#with open('experiment-3/output/input/asrOutputTest.csv') as csv_file:
+    #csv_reader = csv.reader(output, delimiter=',')
+    #print (csv_reader)
+    #line_count = 0
+    #for row in csv_reader:
+    #    if line_count == 0:
+    #        print(f'Column names are {", ".join(row)}')
+    #        line_count += 1
+    #    else:
+    #        print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
+    #        line_count += 1
+    #print(f'Processed {line_count} lines.')
