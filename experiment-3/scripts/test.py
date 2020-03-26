@@ -2,7 +2,7 @@
 import csv
 import json
 import pandas as pd 
-from pandas.io.json import json_normalize 
+from pandas import json_normalize 
 
 #Segment number, 
 
@@ -10,11 +10,15 @@ from pandas.io.json import json_normalize
 with open('experiment-3/input/asrOutputTest.json') as f:
   data = json.load(f)
 
+segmentCount = len(data)
+#print (segmentCount)
+
 # Initializing empty lists
 start_time, end_time = [], []
 
 # Grabbing all the start times in the segments and appending them to a list
 for i in range(len(data['results']['segments'])):
+    print (i)
     # print(data['results']['segments'][i]['start_time'])
     start_time.append(data['results']['segments'][i]['start_time'])
 
@@ -27,7 +31,7 @@ for i in range(len(data['results']['segments'])):
 json_output = [{"start_time": t, "end_time": s} for t, s in zip(start_time, end_time)]
 
 output=json_normalize(json_output)
-print (output)
+#print (output)
 
 output.to_csv(r'experiment-3/output/asrOutputTest.csv', index = False, header=True)
 #with open('experiment-3/output/input/asrOutputTest.csv') as csv_file:
