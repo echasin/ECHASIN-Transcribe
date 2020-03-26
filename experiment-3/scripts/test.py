@@ -14,11 +14,18 @@ segmentCount = len(data)
 #print (segmentCount)
 
 # Initializing empty lists
-start_time, end_time = [], []
+segment_count, start_time, end_time = [],[],[]
+
+# Grabbing all the counter for segment appending them to a list
+for i in range(len(data['results']['segments'])):
+    #print (i)
+    # print(data['results']['segments'][i]['start_time'])
+    segment_count.append(i)
+    print (segment_count)
+
 
 # Grabbing all the start times in the segments and appending them to a list
 for i in range(len(data['results']['segments'])):
-    print (i)
     # print(data['results']['segments'][i]['start_time'])
     start_time.append(data['results']['segments'][i]['start_time'])
 
