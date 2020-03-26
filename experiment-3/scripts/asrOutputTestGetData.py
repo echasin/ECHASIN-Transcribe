@@ -1,7 +1,9 @@
 import json
 import requests
+import pandas
 from pprint import pprint 
 from jsonpath_ng import jsonpath, parse
+from pandas import json_normalize 
 
 #Read in data file
 with open('../input/asrOutputTest.json', 'r') as data_file:
@@ -24,15 +26,46 @@ segmentsAlternativesItemsCount = len(json_data['results']['segments'][0]['altern
 #print (segmentsAlternativesItems)
 #print (segmentsAlternativesItemsCount)
 
+# Initialize array
+output_array  = []
+
 # Grabbing all the start times in the segments and appending them to a list
 segmentCount = -1
 for segment in range(len(json_data['results']['segments'])):
     segmentCount = segmentCount +1
     
     itemCount = -1
-    for items  in range(len(json_data['results']['segments'][segment]['alternatives'][0]['items'])):
+    for item  in range(len(json_data['results']['segments'][segment]['alternatives'][0]['items'])):
         itemCount = itemCount + 1
-        print (segmentCount,itemCount)
+        print (
+        segmentCount,
+        json_data['results']['segments'][segment]['start_time'],
+        json_data['results']['segments'][segment]['end_time'],
+        json_data['results']['segments'][segment]['alternatives'][0]['transcript'],
+        itemCount,
+        json_data['results']['segments'][segment]['alternatives'][0]['items'][item]['confidence'] )
+
+        output_array.append(segmentCount)
+        output_array.append(json_data['results']['segments'][segment]['start_time'])
+        output_array.append(json_data['results']['segments'][segment]['end_time'])
+        output_array.append(itemCount)
+        output_array.append( json_data['results']['segments'][segment]['alternatives'][0]['transcript'])
+        output_array.append( json_data['results']['segments'][segment]['alternatives'][0]['items'][item]['confidence'])
+
+#Print output_array
+pprint (output_array)
+
+#Populate Dataframe
+#df_output_array = pandas.DataFrame(output_array)
+#pprint (df_output_array)
+
+#Populate Dataframe
+#df_output_array.to_csv(r'../output/asrOutputTest.csv', index = False)
+
+#Normalize output_array
+#output_array_normalized = json_normalize(output_array)
+## print(output_array_normalized)
+
 #print ('segmentCount: ', segmentCount,'start_time: ',json_data['results']['segments'][segment]['start_time'],'end_time: ',json_data['results']['segments'][segment]['end_time'],'items:', json_data['results']['segments'][segment]['alternatives'][0]['items']        )
     #print ('start_time: ',json_data['results']['segments'][segment]['start_time'])
 
