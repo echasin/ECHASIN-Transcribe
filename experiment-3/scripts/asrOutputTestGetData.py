@@ -3,7 +3,8 @@ import requests
 import pandas
 from pprint import pprint 
 from jsonpath_ng import jsonpath, parse
-from pandas import json_normalize 
+from pandas.io.json import json_normalize
+# from pandas import json_normalize 
 
 #Read in data file
 with open('../input/asrOutputTest.json', 'r') as data_file:
@@ -52,8 +53,15 @@ for segment in range(len(json_data['results']['segments'])):
         output_array.append( json_data['results']['segments'][segment]['alternatives'][0]['transcript'])
         output_array.append( json_data['results']['segments'][segment]['alternatives'][0]['items'][item]['confidence'])
 
+
+json_output = [{"Segment": z, "Start": z, "End": z, "Content": z, "item": z, "?": z} for z in zip(output_array)]
+
+
+output=json_normalize(json_output)
+print(output)
+
 #Print output_array
-pprint (output_array)
+# pprint (output_array)
 
 #Populate Dataframe
 #df_output_array = pandas.DataFrame(output_array)
