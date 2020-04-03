@@ -1,3 +1,10 @@
 {
-    "python.pythonPath": "D:\\Python37\\python.exe"
+    "python.pythonPath": "D:\\Python37\\python.exe",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
