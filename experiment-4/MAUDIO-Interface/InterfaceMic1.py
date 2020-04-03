@@ -18,8 +18,8 @@ print(sound_device_default)
 
 #Set Audio Format
 FORMAT = pyaudio.paInt16
-INPUT_DEVICE = 4
-CHANNELS = 2
+INPUT_DEVICE = 1
+CHANNELS = 1
 RATE = 44100
 CHUNK = 1024
 RECORD_SECONDS = 5
