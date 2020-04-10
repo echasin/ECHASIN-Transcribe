@@ -67,6 +67,20 @@ var mediaRecorder;
         document.querySelector('#save-recording').disabled = false;
       }
 
+       //function onMediaError
       function onMediaError(e) {
         console.error('media error', e);
+      }
+      
+      //function byToSize
+      var audiosContainer = document.getElementById('audios-container');
+      var index = 1;
+
+      // below function via: http://goo.gl/B3ae8c
+      function bytesToSize(bytes) {
+        var k = 1000;
+        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (bytes === 0) return '0 Bytes';
+        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
+        return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
       }
