@@ -55,23 +55,14 @@
         </div>
 
 
-<!-- 
-        <select id="audio-recorderType" style="font-size:22px;vertical-align: middle;margin-right: 5px;">
-          <option>[Best Available Recorder]</option>
-          <option>MediaRecorder API</option>
-          <option>WebAudio API (WAV)</option>
-          <option>WebAudio API (PCM)</option>
-        </select>
-        <br> -->
-
         <input id="left-channel" type="checkbox" checked style="width:auto;">
         <label for="left-channel">Record Mono Audio if WebAudio API is selected (above)</label>
 
         <br>
         <br>
 
-        <button id="start-recording">Start</button>
-        <button id="stop-recording" disabled>Stop</button>
+        <button type="button" class="btn btn-primary" id="start-recording">Start</button>
+        <button type="button" class="btn btn-danger"id="stop-recording" disabled>Stop</button>
 
         <button id="pause-recording" disabled>Pause</button>
         <button id="resume-recording" disabled>Resume</button>
@@ -89,10 +80,12 @@
         navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
       }
 
+      //Setting variable to only get audio devices
       var mediaConstraints = {
         audio: true
       };
 
+      //Functionality for Start Button
       document.querySelector('#start-recording').onclick = function () {
         this.disabled = true;
         captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
