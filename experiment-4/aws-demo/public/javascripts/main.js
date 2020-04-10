@@ -6,6 +6,10 @@ var mediaConstraints = {
 };
 console.log('mediaConstraints', mediaConstraints)
 
+function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
+    navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+  }
+
 var mediaRecorder;
 
       function onMediaSuccess(stream) {
