@@ -8,7 +8,6 @@
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="javascripts/main.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
   <style>
     .footer {
       position: fixed;
@@ -19,7 +18,7 @@
       color: white;
       text-align: center;
     }
-    </style>
+  </style>
 </head>
 
 <body>
@@ -33,16 +32,14 @@
     </header>
 
 
-    <div class="container">
-      <section>
-
+    <section>
+      <div class="container">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">Time Interval (milliseconds)</span>
           </div>
           <input type="text" id="time-interval" class="form-control" value="5000">
         </div>
-
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="audio-recorderType">Recorder Type</label>
@@ -54,46 +51,34 @@
             <option>WebAudio API (PCM)</option>
           </select>
         </div>
-
-
         <input id="left-channel" type="checkbox" checked style="width:auto;">
         <label for="left-channel">Record Mono Audio if WebAudio API is selected (above)</label>
-
         <br>
         <br>
-
         <button type="button" class="btn btn-primary" id="start-recording">Start</button>
-        <button type="button" class="btn btn-danger"id="stop-recording" disabled>Stop</button>
-
-        <button id="pause-recording" disabled>Pause</button>
-        <button id="resume-recording" disabled>Resume</button>
-
-        <button id="save-recording" disabled>Save</button>
-      </section>
-    </div>
-    <section class="experiment">
-      <div id="audios-container"></div>
+        <button type="button" class="btn btn-danger" id="stop-recording" disabled>Stop</button>
+        <button type="button" class="btn btn-warning" id="pause-recording" disabled>Pause</button>
+        <button type="button" class="btn btn-info" id="resume-recording" disabled>Resume</button>
+        <button type="button" class="btn btn-success" id="save-recording" disabled>Save</button>
+      </div>
+    </section>
+    <section>
+      <br>
+      <div class="container" id="audios-container"></div>
     </section>
 
 
     <script>
-      // function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
-      //   navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
-      // }
-
-      //Setting variable to only get audio devices
-      // var mediaConstraints = {
-      //   audio: true
-      // };
-
       //Functionality for Start Button
       document.querySelector('#start-recording').onclick = function () {
         this.disabled = true;
+        console.log("#start-recording .onclick");
         captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
       };
 
       document.querySelector('#stop-recording').onclick = function () {
         this.disabled = true;
+        console.log("#stop-recording .onclick")
         mediaRecorder.stop();
         mediaRecorder.stream.stop();
 
@@ -103,6 +88,7 @@
 
       document.querySelector('#pause-recording').onclick = function () {
         this.disabled = true;
+        console.log("#pause-recording .onclick")
         mediaRecorder.pause();
 
         document.querySelector('#resume-recording').disabled = false;
@@ -110,6 +96,7 @@
 
       document.querySelector('#resume-recording').onclick = function () {
         this.disabled = true;
+        console.log("#resume-recording .onclick")
         mediaRecorder.resume();
 
         document.querySelector('#pause-recording').disabled = false;
@@ -117,75 +104,11 @@
 
       document.querySelector('#save-recording').onclick = function () {
         this.disabled = true;
+        console.log("#save-recording .onclick")
         mediaRecorder.save();
 
         // alert('Drop WebM file on Chrome or Firefox. Both can play entire file. VLC player or other players may not work.');
       };
-
-      // var mediaRecorder;
-
-      // function onMediaSuccess(stream) {
-      //   var audio = document.createElement('audio');
-
-      //   audio = mergeProps(audio, {
-      //     controls: true,
-      //     muted: true
-      //   });
-      //   audio.srcObject = stream;
-      //   audio.play();
-
-      //   audiosContainer.appendChild(audio);
-      //   audiosContainer.appendChild(document.createElement('hr'));
-
-      //   mediaRecorder = new MediaStreamRecorder(stream);
-      //   mediaRecorder.stream = stream;
-
-      //   var recorderType = document.getElementById('audio-recorderType').value;
-
-      //   if (recorderType === 'MediaRecorder API') {
-      //     mediaRecorder.recorderType = MediaRecorderWrapper;
-      //   }
-
-      //   if (recorderType === 'WebAudio API (WAV)') {
-      //     mediaRecorder.recorderType = StereoAudioRecorder;
-      //     mediaRecorder.mimeType = 'audio/wav';
-      //   }
-
-      //   if (recorderType === 'WebAudio API (PCM)') {
-      //     mediaRecorder.recorderType = StereoAudioRecorder;
-      //     mediaRecorder.mimeType = 'audio/pcm';
-      //   }
-
-      //   // don't force any mimeType; use above "recorderType" instead.
-      //   // mediaRecorder.mimeType = 'audio/webm'; // audio/ogg or audio/wav or audio/webm
-
-      //   mediaRecorder.audioChannels = !!document.getElementById('left-channel').checked ? 1 : 2;
-      //   mediaRecorder.ondataavailable = function (blob) {
-      //     var a = document.createElement('a');
-      //     a.target = '_blank';
-      //     a.innerHTML = 'Open Recorded Audio No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
-
-      //     a.href = URL.createObjectURL(blob);
-
-      //     audiosContainer.appendChild(a);
-      //     audiosContainer.appendChild(document.createElement('hr'));
-      //   };
-
-      //   var timeInterval = document.querySelector('#time-interval').value;
-      //   if (timeInterval) timeInterval = parseInt(timeInterval);
-      //   else timeInterval = 5 * 1000;
-
-      //   // get blob after specific time interval
-      //   mediaRecorder.start(timeInterval);
-
-      //   document.querySelector('#stop-recording').disabled = false;
-      //   document.querySelector('#pause-recording').disabled = false;
-      //   document.querySelector('#save-recording').disabled = false;
-      // }
-
-      // function onMediaError(e) {
-      //   console.error('media error', e);
-      // }
 
       var audiosContainer = document.getElementById('audios-container');
       var index = 1;
@@ -204,21 +127,13 @@
         var data = new Date(milliseconds);
         return data.getUTCHours() + " hours, " + data.getUTCMinutes() + " minutes and " + data.getUTCSeconds() + " second(s)";
       }
-
-      // window.onbeforeunload = function () {
-      //   document.querySelector('#start-recording').disabled = false;
-      // };
     </script>
 
-
-
-   
-      <div class="footer">
-        <p>
-          USCIS Innovation Lab (ILAB)
-        </p>
-      </div>
-  
+    <div class="footer">
+      <p>
+        USCIS Innovation Lab (ILAB)
+      </p>
+    </div>
 </body>
 
 </html>

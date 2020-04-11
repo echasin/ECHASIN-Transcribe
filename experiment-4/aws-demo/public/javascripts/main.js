@@ -10,6 +10,7 @@ function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
     navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
   }
 
+//onMediaSuccess
 var mediaRecorder;
 
       function onMediaSuccess(stream) {
@@ -49,6 +50,9 @@ var mediaRecorder;
 
         mediaRecorder.audioChannels = !!document.getElementById('left-channel').checked ? 1 : 2;
         mediaRecorder.ondataavailable = function (blob) {
+          
+          console.log('Create audiosContainer');//Create audiosContainer
+          
           var a = document.createElement('a');
           a.target = '_blank';
           a.innerHTML = 'Open Recorded Audio No. ' + (index++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval);
@@ -76,7 +80,10 @@ var mediaRecorder;
         console.error('media error', e);
       }
       
-      
+
+
+
+
       window.onbeforeunload = function () {
         document.querySelector('#start-recording').disabled = false;
       };
