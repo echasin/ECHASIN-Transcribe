@@ -10,11 +10,12 @@
 
 const videoElement = document.querySelector('video');
 const audioInputSelect = document.querySelector('select#audioSource');
-const audioOutputSelect = document.querySelector('select#audioOutput');
+// const audioOutputSelect = document.querySelector('select#audioOutput');
 const videoSelect = document.querySelector('select#videoSource');
-const selectors = [audioInputSelect, audioOutputSelect, videoSelect];
+// const selectors = [audioInputSelect, audioOutputSelect, videoSelect];
+const selectors = [audioInputSelect, videoSelect];
 
-audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
+// audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 
 function gotDevices(deviceInfos) {
   // Handles being called several times to update labels. Preserve values.
@@ -103,7 +104,7 @@ function start() {
 }
 
 audioInputSelect.onchange = start;
-audioOutputSelect.onchange = changeAudioDestination;
+// audioOutputSelect.onchange = changeAudioDestination;
 
 videoSelect.onchange = start;
 
