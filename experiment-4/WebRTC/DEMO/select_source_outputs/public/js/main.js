@@ -8,12 +8,12 @@
 
 'use strict';
 
-const videoElement = document.querySelector('video');
+// const videoElement = document.querySelector('video');
 const audioInputSelect = document.querySelector('select#audioSource');
 // const audioOutputSelect = document.querySelector('select#audioOutput');
-const videoSelect = document.querySelector('select#videoSource');
+// const videoSelect = document.querySelector('select#videoSource');
 // const selectors = [audioInputSelect, audioOutputSelect, videoSelect];
-const selectors = [audioInputSelect, videoSelect];
+const selectors = [audioInputSelect];
 
 // audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 
@@ -32,12 +32,12 @@ function gotDevices(deviceInfos) {
     if (deviceInfo.kind === 'audioinput') {
       option.text = deviceInfo.label || `microphone ${audioInputSelect.length + 1}`;
       audioInputSelect.appendChild(option);
-    } else if (deviceInfo.kind === 'audiooutput') {
-      option.text = deviceInfo.label || `speaker ${audioOutputSelect.length + 1}`;
-      audioOutputSelect.appendChild(option);
-    } else if (deviceInfo.kind === 'videoinput') {
-      option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
-      videoSelect.appendChild(option);
+    // } else if (deviceInfo.kind === 'audiooutput') {
+    //   option.text = deviceInfo.label || `speaker ${audioOutputSelect.length + 1}`;
+    //   audioOutputSelect.appendChild(option);
+    // } else if (deviceInfo.kind === 'videoinput') {
+    //   option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
+    //   videoSelect.appendChild(option);
     } else {
       console.log('Some other kind of source/device: ', deviceInfo);
     }
@@ -95,10 +95,10 @@ function start() {
     });
   }
   const audioSource = audioInputSelect.value;
-  const videoSource = videoSelect.value;
+//   const videoSource = videoSelect.value;
   const constraints = {
-    audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+    audio: {deviceId: audioSource ? {exact: audioSource} : undefined}
+    // video: {deviceId: videoSource ? {exact: videoSource} : undefined}
   };
   navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 }
@@ -106,6 +106,6 @@ function start() {
 audioInputSelect.onchange = start;
 // audioOutputSelect.onchange = changeAudioDestination;
 
-videoSelect.onchange = start;
+// videoSelect.onchange = start;
 
 start();
