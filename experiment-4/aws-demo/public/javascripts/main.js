@@ -1,10 +1,17 @@
 console.log('In: main.js')
 
-//Initialize variable mediaContrainsts
+//Initialize variable
+//UI Selectors
+const audioInputSelect = document.querySelector('select#audioSource');
+const selectors = [audioInputSelect];
+
 var mediaConstraints = {
   audio: true
 };
+//Log out variables
 console.log('mediaConstraints', mediaConstraints)
+
+
 
 function captureUserMedia(mediaConstraints, successCallback, errorCallback) {
   navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
