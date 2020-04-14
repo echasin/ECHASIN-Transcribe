@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <script src="https://cdn.WebRTC-Experiment.com/MediaStreamRecorder.js"></script>
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Select audio and video sources</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: blue;
+        color: white;
+        text-align: center;
+      }
+    </style>
+</head>
+
+<body>
+<div id="container">
+
+    <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a><span>Select sources &amp; outputs</span>
+    </h1>
+
+    <!-- <p>Get available audio, video sources and audio output devices from <code>mediaDevices.enumerateDevices()</code>
+        then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.</p> -->
+
+    <div class="select">
+        <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
+    </div>
+
+    <section>
+        <div class="container">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Time Interval (milliseconds)</span>
+            </div>
+            <input type="text" id="time-interval" class="form-control" value="5000">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="audio-recorderType">Recorder Type</label>
+            </div>
+            <select class="custom-select" id="audio-recorderType">
+              <option>[Best Available Recorder]</option>
+              <option>MediaRecorder API</option>
+              <option>WebAudio API (WAV)</option>
+              <option>WebAudio API (PCM)</option>
+            </select>
+          </div>
+          <input id="left-channel" type="checkbox" checked style="width:auto;">
+          <label for="left-channel">Record Mono Audio if WebAudio API is selected (above)</label>
+          <br>
+          <br>
+          <button type="button" class="btn btn-primary" id="start-recording">Start</button>
+          <button type="button" class="btn btn-danger" id="stop-recording" disabled>Stop</button>
+          <button type="button" class="btn btn-warning" id="pause-recording" disabled>Pause</button>
+          <button type="button" class="btn btn-info" id="resume-recording" disabled>Resume</button>
+          <button type="button" class="btn btn-success" id="save-recording" disabled>Save</button>
+        </div>
+      </section>
+      <section>
+        <br>
+        <div class="container" id="audios-container"></div>
+      </section>
+
+
+
+    <!-- <div class="select">
+        <label for="audioOutput">Audio output destination: </label><select id="audioOutput"></select>
+    </div> -->
+
+    <!-- <div class="select">
+        <label for="videoSource">Video source: </label><select id="videoSource"></select>
+    </div> -->
+
+    <!-- <video id="video" playsinline autoplay></video> -->
+
+    <!-- <p class="small"><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your
+        speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.</p>
+
+    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/devices/input-output"
+       title="View source for this page on GitHub" id="viewSource">View source on GitHub</a> -->
+</div>
+
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="js/main.js" async></script>
+
+<script>
+    //Functionality for Start Button
+    document.querySelector('#start-recording').onclick = function () {
+      this.disabled = true;
+      console.log("#start-recording .onclick");
+      captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+    };
+
+    document.querySelector('#stop-recording').onclick = function () {
+      this.disabled = true;
+      console.log("#stop-recording .onclick")
+      mediaRecorder.stop();
+      mediaRecorder.stream.stop();
+
+      document.querySelector('#pause-recording').disabled = true;
+      document.querySelector('#start-recording').disabled = false;
+    };
+
+    document.querySelector('#pause-recording').onclick = function () {
+      this.disabled = true;
+      console.log("#pause-recording .onclick")
+      mediaRecorder.pause();
+
+      document.querySelector('#resume-recording').disabled = false;
+    };
+
+    document.querySelector('#resume-recording').onclick = function () {
+      this.disabled = true;
+      console.log("#resume-recording .onclick")
+      mediaRecorder.resume();
+
+      document.querySelector('#pause-recording').disabled = false;
+    };
+
+    document.querySelector('#save-recording').onclick = function () {
+      this.disabled = true;
+      console.log("#save-recording .onclick")
+      mediaRecorder.save();
+
+      // alert('Drop WebM file on Chrome or Firefox. Both can play entire file. VLC player or other players may not work.');
+    };
+
+    var audiosContainer = document.getElementById('audios-container');
+    var index = 1;
+
+    // below function via: http://goo.gl/B3ae8c
+    function bytesToSize(bytes) {
+      var k = 1000;
+      var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+      if (bytes === 0) return '0 Bytes';
+      var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
+      return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+    }
+
+    // below function via: http://goo.gl/6QNDcI
+    function getTimeLength(milliseconds) {
+      var data = new Date(milliseconds);
+      return data.getUTCHours() + " hours, " + data.getUTCMinutes() + " minutes and " + data.getUTCSeconds() + " second(s)";
+    }
+  </script>
+
+
+<!-- <script src="../../../js/lib/ga.js"></script> -->
+</body>
+</html>
