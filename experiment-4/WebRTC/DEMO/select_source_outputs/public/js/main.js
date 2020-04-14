@@ -24,6 +24,7 @@ var mediaRecorder;
 
 function onMediaSuccess(stream) {
   var audio = document.createElement('audio');
+  
 
   audio = mergeProps(audio, {
     controls: true,
