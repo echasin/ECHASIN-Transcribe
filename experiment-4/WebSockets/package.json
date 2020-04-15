@@ -1,0 +1,15 @@
+{
+  "name": "websockets",
+  "version": "1.0.0",
+  "description": "- In real time applications, the connection between server and client must be persistent. - WebSockets solve this issue by establishing a persistent socket connection between the client and server. Once the connection is established, it remains open until the client or server wants to close it.",
+  "main": "creating_websocket.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "websocket": "^1.0.31",
+    "ws": "^7.2.3"
+  }
+}
