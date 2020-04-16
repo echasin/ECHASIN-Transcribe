@@ -24,13 +24,39 @@ $(function () {
     }
 
     // open connection
-    var connection = new WebSocket('ws://127.0.0.1:1337');
+   var connection = new WebSocket('ws://127.0.0.1:1337');
 
-    connection.onopen = function () {
-        // first we want users to enter their names
+    //New Functions based on Jquery
+    $('#button').click(function(){
+        alert("button");
+    });
+    
+    $('#startsocket').click( function(){
+        console.log("connection = new WebSocket(ws://127.0.0.1:1337");
+        var connection = new WebSocket('ws://127.0.0.1:1337');
+        console.log("socket.readyState: " + connection.readyState);
+    });
+
+    $('#onclose').click( connection.onclose = function(){
+        console.log("connection.close");
+        console.log("socket.readyState: " + connection.readyState);
+    });
+
+    $('#onopen').click( connection.onopen = function(){
+           // first we want users to enter their names
+        console.log("connection.onopen") 
+        console.log("socket.readyState: " + connection.readyState);
         input.removeAttr('disabled');
         status.text('Choose name:');
-    };
+    });
+
+    //END
+
+    // connection.onopen = function () {
+    //     // first we want users to enter their names
+    //     input.removeAttr('disabled');
+    //     status.text('Choose name:');
+    // };
 
     connection.onerror = function (error) {
         // just in there were some problems with conenction...
@@ -76,6 +102,8 @@ $(function () {
      * Send mesage when user presses Enter key
      */
     input.keydown(function(e) {
+        console.log("input.keydown")
+        console.log("socket.readyState: " + connection.readyState);
         if (e.keyCode === 13) {
             var msg = $(this).val();
             if (!msg) {
