@@ -66,6 +66,7 @@ $(function () {
 
     // most important part - incoming messages
     connection.onmessage = function (message) {
+        console.log("connection.onmessage")
         // try to parse JSON message. Because we know that the server always returns
         // JSON this should work without any problem but we should make sure that
         // the massage is not chunked or otherwise damaged.
@@ -88,11 +89,14 @@ $(function () {
             for (var i=0; i < json.data.length; i++) {
                 addMessage(json.data[i].author, json.data[i].text,
                            json.data[i].color, new Date(json.data[i].time));
+                console.log("json.type === 'history'");
             }
         } else if (json.type === 'message') { // it's a single message
             input.removeAttr('disabled'); // let the user write another message
             addMessage(json.data.author, json.data.text,
                        json.data.color, new Date(json.data.time));
+            console.log("json.type === 'message'")
+            console.log("json.data.author"+ json.data.author)
         } else {
             console.log('Hmm..., I\'ve never seen JSON like this: ', json);
         }
@@ -102,8 +106,8 @@ $(function () {
      * Send mesage when user presses Enter key
      */
     input.keydown(function(e) {
-        console.log("input.keydown")
-        console.log("socket.readyState: " + connection.readyState);
+        // console.log("input.keydown")
+        // console.log("socket.readyState: " + connection.readyState);
         if (e.keyCode === 13) {
             var msg = $(this).val();
             if (!msg) {
@@ -111,6 +115,7 @@ $(function () {
             }
             // send the message as an ordinary text
             connection.send(msg);
+            console.log("name:" + "Time:" + "msg: " + msg)
             $(this).val('');
             // disable the input field to make the user wait until server
             // sends back response

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pg": "^8.0.2",
     "websocket": "^1.0.31",
     "ws": "^7.2.3"
   }
