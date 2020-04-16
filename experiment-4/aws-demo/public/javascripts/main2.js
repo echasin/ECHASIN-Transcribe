@@ -49,17 +49,17 @@ function onMediaSuccess2(stream) {
   // mediaRecorder.mimeType = 'audio/webm'; // audio/ogg or audio/wav or audio/webm
 
   mediaRecorder2.audioChannels = !!document.getElementById('left-channel2').checked ? 1 : 2;
-  mediaRecorder2.ondataavailable = function (blob) {
+  mediaRecorder2.ondataavailable = function (blob2) {
 
     console.log('Create audiosContainer');//Create audiosContainer
 
-    var a = document.createElement('a');
-    a.target = '_blank';
-    a.innerHTML = 'Mic #2 Open Recorded Audio No. ' + (index2++) + ' (Size: ' + bytesToSize(blob.size) + ') Time Length: ' + getTimeLength(timeInterval2);
+    var a2 = document.createElement('a');
+    a2.target = '_blank';
+    a2.innerHTML = 'Mic #2 Open Recorded Audio No. ' + (index++) + ' (Size: ' + bytesToSize(blob2.size) + ') Time Length: ' + getTimeLength(timeInterval2);
 
-    a.href = URL.createObjectURL(blob);
+    a2.href = URL.createObjectURL(blob2);
 
-    audiosContainer2.appendChild(a);
+    audiosContainer2.appendChild(a2);
     audiosContainer2.appendChild(document.createElement('hr'));
   };
 
