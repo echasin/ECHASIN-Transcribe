@@ -26,7 +26,26 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <style>
-    .footer {
+    
+    #container { 
+                float:left;  
+                width:45%; 
+                height:280px; 
+                padding-left: 20px;
+                padding-right: 10px;
+
+}            
+    #container2{ 
+                float:right;  
+                width:45%; 
+                height:280px; 
+                padding-left: 10px;
+                padding-right: 20px;
+            } 
+    #style{
+      text-align: center;
+    }
+    /* .footer {
       position: fixed;
       left: 0;
       bottom: 0;
@@ -34,14 +53,17 @@
       background-color: blue;
       color: white;
       text-align: center;
-    }
+    } */
   </style>
 </head>
 
 <body>
+  <h1 id="style" >AWS Transcribe - Streaming Demo </h1>
+  <br>
+  <br>
   <div id="container">
     <section>
-    <h1>AWS Transcribe - Streaming Demo </h1>
+    <h2>Mic #1 </h2s>
   </section>
     <br>
     <section>
@@ -106,6 +128,9 @@
 
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="javascripts/main.js" async></script>
+  <!-- <script src="javascripts/main2.js" async></script> -->
+
+
 
   <script>
     //Functionality for Start Button
@@ -172,4 +197,3 @@
   <!-- <script src="../../../js/lib/ga.js"></script> -->
 </body>
 
-</html>
