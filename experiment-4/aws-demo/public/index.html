@@ -26,26 +26,7 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <style>
-    
-    #container { 
-                float:left;  
-                width:45%; 
-                height:280px; 
-                padding-left: 20px;
-                padding-right: 10px;
-
-}            
-    #container2{ 
-                float:right;  
-                width:45%; 
-                height:280px; 
-                padding-left: 10px;
-                padding-right: 20px;
-            } 
-    #style{
-      text-align: center;
-    }
-    /* .footer {
+    .footer {
       position: fixed;
       left: 0;
       bottom: 0;
@@ -53,17 +34,14 @@
       background-color: blue;
       color: white;
       text-align: center;
-    } */
+    }
   </style>
 </head>
 
 <body>
-  <h1 id="style" >AWS Transcribe - Streaming Demo </h1>
-  <br>
-  <br>
   <div id="container">
     <section>
-    <h2>Mic #1 </h2s>
+    <h1>AWS Transcribe - Streaming Demo </h1>
   </section>
     <br>
     <section>
@@ -71,8 +49,12 @@
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <label class="input-group-text" for="audioSource">Audio Input Source</label><select
-              id="audioSource"></select>
+            <!-- <label class="input-group-text" for="audioSource">Audio Input Source</label><select
+              id="audioSource"></select> -->
+              <div class="select">
+                <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
+            </div>
+        
           </div>
         </div>
         <div class="input-group mb-3">
@@ -108,29 +90,10 @@
       <div class="container" id="audios-container"></div>
     </section>
 
-
-
-    <!-- <div class="select">
-        <label for="audioOutput">Audio output destination: </label><select id="audioOutput"></select>
-    </div> -->
-
-    <!-- <div class="select">
-        <label for="videoSource">Video source: </label><select id="videoSource"></select>
-    </div> -->
-
-    <!-- <video id="video" playsinline autoplay></video> -->
-
-    <!-- <p class="small"><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your
-        speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.</p>
-    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/devices/input-output"
-       title="View source for this page on GitHub" id="viewSource">View source on GitHub</a> -->
   </div>
 
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="javascripts/main.js" async></script>
-  <!-- <script src="javascripts/main2.js" async></script> -->
-
-
 
   <script>
     //Functionality for Start Button
@@ -197,3 +160,4 @@
   <!-- <script src="../../../js/lib/ga.js"></script> -->
 </body>
 
+</html>
